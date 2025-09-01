@@ -2,7 +2,7 @@ import {Conversation} from '@grammyjs/conversations'
 import {Composer, InlineKeyboard} from 'grammy'
 import {Context} from '../context'
 import {i18n} from '../../i18n'
-import {rand, roundDimension, sleep} from '../../util/functional'
+import {rand, roundDimension, scaleValue, sleep} from '../../util/functional'
 
 export function createSlotsComposer() {
   const c = new Composer<Context>()
@@ -44,14 +44,18 @@ export async function slotsConversation(conv: Conversation<Context, Context>, ct
   // fake processing
   await conv.external(async () => await sleep(rand(1000, 3000)))
 
+  const predict = await conv.external(() => generatePredictedSlots(ctx.from!.id))
+
   await ctx.reply(
     i18n.t('slots.conversation-result.msg', {
-      analysisResult: generatePredictedSlots(ctx.from!.id),
+      nextGame: predict.nextGame,
+      chanceToWin: predict.chanceToWin,
     }),
     {
       parse_mode: 'HTML',
       reply_markup: new InlineKeyboard()
-        .text(i18n.t('main-menu'), 'start'),
+        .text(i18n.t('main-menu'), 'start').row()
+        .text(i18n.t('once-again'), 'start-slots').row()
     },
   )
 
@@ -59,28 +63,12 @@ export async function slotsConversation(conv: Conversation<Context, Context>, ct
 
 function generatePredictedSlots(userId: number) {
   const timeInMinutes = Math.floor(Date.now() / 60000)
-  const seed = userId + timeInMinutes
+  const seed = userId + timeInMinutes / 5 // change every 5 minutes for same user
 
-  let msg = ''
-
-  // generate 10 random slots from 1.1 to 5.5 with percent chance
-
-  const slotMin = 1.1
-  const slotMax = 5.5
-  const chanceMin = 20
-  const chanceMax = 70
-
-  for (let i = 0; i < 10; i++) {
-    const slotFactor = randomFromSeed(seed + i * 60000)
-    const chanceFactor = randomFromSeed(seed + i * 60000 + 1)
-
-    const slotValue = roundDimension((slotFactor * (slotMax - slotMin)) + slotMin)
-    const chanceValue = roundDimension((chanceFactor * (chanceMax - chanceMin)) + chanceMin)
-
-    msg += `${slotValue}x - ${chanceValue}%\n`
+  return {
+    nextGame: Math.round(scaleValue(20, 99, randomFromSeed(seed + 1))),
+    chanceToWin: roundDimension(scaleValue(40, 70, randomFromSeed(seed + 2))),
   }
-
-  return msg.trim()
 }
 
 function randomFromSeed(seed: number): number {
