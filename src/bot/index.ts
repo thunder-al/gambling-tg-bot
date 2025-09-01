@@ -9,6 +9,7 @@ import {createMainComposer} from './composers/main'
 import {conversations, createConversation} from '@grammyjs/conversations'
 import {createSlotsComposer, slotsConversation} from './composers/slots'
 import {createLiveComposer, liveConversation} from './composers/live'
+import {createMiniComposer, miniConversation} from './composers/mini'
 
 export function createBot() {
 
@@ -21,10 +22,12 @@ export function createBot() {
 
   bot.use(createConversation(slotsConversation, {id: 'slots-conversation'}))
   bot.use(createConversation(liveConversation, {id: 'live-conversation'}))
+  bot.use(createConversation(miniConversation, {id: 'mini-conversation'}))
 
   bot.use(createMainComposer())
   bot.use(createSlotsComposer())
   bot.use(createLiveComposer())
+  bot.use(createMiniComposer())
 
   async function start() {
     await bot.init()

@@ -42,3 +42,27 @@ live:
   conversation-result:
     msg: |
       До бонусной игры осталось {{nextGame}} игр, вероятность: {{chanceToWin}}%
+
+mini:
+  choose-game:
+    msg: |
+      Привет, пожалуйста, выбери мини-игру.
+
+  games:
+    luckyjet: Lucky Jet (Mini-игры)
+    luckyjet_analogues: Lucky Jet Analogues (Mini-игры)
+
+  luckyjet:
+    instruction: |
+      Сделай 5 ставок и напиши результат в формате: x2, x1.5, x3, x1.1, x7
+
+  luckyjet_analogues:
+    instruction: |
+      Сделай 5 ставок и напиши результат в формате: x2, x1.5, x3, x1.1, x7
+
+  input-error: |
+    Пожалуйста, отправь результаты ставок текстом.
+
+  analysis-start:
+    msg: |
+      Анализирую результаты, подожди немного...
