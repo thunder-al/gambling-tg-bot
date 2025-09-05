@@ -16,6 +16,12 @@ export function createLiveComposer() {
 }
 
 export async function liveConversation(conv: Conversation<Context, Context>, ctx: Context) {
+
+  // back button
+  if (ctx.update.callback_query?.data === 'start') {
+    await conv.halt({next: true})
+  }
+
   await ctx.reply(
     i18n.t('live.conversation-start.msg'),
     {
@@ -25,10 +31,17 @@ export async function liveConversation(conv: Conversation<Context, Context>, ctx
   )
 
   const photoMsg = await conv.waitFor(':photo', {
-    otherwise: (ctx) => ctx.reply(
-      i18n.t('live.conversation-start.error.not-a-image'),
-      {parse_mode: 'HTML'},
-    ),
+    async otherwise(ctx) {
+      await ctx.reply(
+        i18n.t('live.conversation-start.error.not-a-image'),
+        {parse_mode: 'HTML'},
+      )
+
+      // back button
+      if (ctx.update.callback_query?.data === 'start') {
+        await conv.halt({next: true})
+      }
+    },
   })
 
   await ctx.reply(

@@ -16,7 +16,12 @@ export function createMiniComposer() {
 }
 
 export async function miniConversation(conv: Conversation<Context, Context>, ctx: Context) {
-  // Step 1: Game selection
+
+  // back button
+  if (ctx.update.callback_query?.data === 'start') {
+    await conv.halt({next: true})
+  }
+
   await ctx.reply(
     i18n.t('mini.choose-game.msg'),
     {
@@ -59,8 +64,15 @@ export async function miniConversation(conv: Conversation<Context, Context>, ctx
   )
 
   // Step 3: Wait for user input (text)
-  const userInput = await conv.waitFor(':text', {
-    otherwise: (ctx) => ctx.reply(i18n.t('mini.input-error'), {parse_mode: 'HTML'}),
+  const userInput = await conv.waitForHears(/^(?:\s*x\d+(?:[.,]\d+)?[,]?\s*)+$/i, {
+    async otherwise(ctx) {
+      await ctx.reply(i18n.t('mini.input-error'), {parse_mode: 'HTML'})
+
+      // back button
+      if (ctx.update.callback_query?.data === 'start') {
+        await conv.halt({next: true})
+      }
+    },
   })
 
   await ctx.reply(

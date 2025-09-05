@@ -6,7 +6,7 @@ async function startMessage(ctx: Context) {
   await ctx.reply(
     i18n.t('start.msg', {
       botName: ctx.me.username,
-      referralLink: 'https://example.com/',
+      referralLink: 'https://1wneov.com/casino/list/4?p=uoa7',
     }),
     {
       parse_mode: 'HTML',

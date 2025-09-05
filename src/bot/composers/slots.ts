@@ -16,6 +16,7 @@ export function createSlotsComposer() {
 }
 
 export async function slotsConversation(conv: Conversation<Context, Context>, ctx: Context) {
+
   await ctx.reply(
     i18n.t('slots.conversation-start.msg'),
     {
@@ -26,10 +27,17 @@ export async function slotsConversation(conv: Conversation<Context, Context>, ct
   )
 
   const photoMsg = await conv.waitFor(':photo', {
-    otherwise: (ctx) => ctx.reply(
-      i18n.t('slots.conversation-start.error.not-a-image'),
-      {parse_mode: 'HTML'},
-    ),
+    async otherwise(ctx) {
+      await ctx.reply(
+        i18n.t('slots.conversation-start.error.not-a-image'),
+        {parse_mode: 'HTML'},
+      )
+
+      // back button
+      if (ctx.update.callback_query?.data === 'start') {
+        await conv.halt({next: true})
+      }
+    },
   })
 
   /*
@@ -55,7 +63,7 @@ export async function slotsConversation(conv: Conversation<Context, Context>, ct
       parse_mode: 'HTML',
       reply_markup: new InlineKeyboard()
         .text(i18n.t('main-menu'), 'start').row()
-        .text(i18n.t('once-again'), 'start-slots').row()
+        .text(i18n.t('once-again'), 'start-slots').row(),
     },
   )
 
