@@ -1,5 +1,6 @@
 import {defineConfig} from 'tsdown'
-import pluginYaml from '@rollup/plugin-yaml'
+import {load as yamlParse} from 'js-yaml'
+import {createFilter, dataToEsm} from '@rollup/pluginutils'
 
 export default defineConfig({
   entry: ['./src/index.ts'],
@@ -44,6 +45,31 @@ export function sourcemapExcludeSources() {
         map.sourcesContent.fill(null)
         chunk.source = JSON.stringify(map)
       }
+    },
+  }
+}
+
+export function pluginYaml() {
+  const filter = createFilter(['**/*.yaml', '**/*.yml'])
+
+  return {
+    name: 'yaml',
+    transform(code: any, id: string) {
+      if (!filter(id)) {
+        return null
+      }
+
+      const jsonObject = yamlParse(code)
+
+      const esModuleString = dataToEsm(jsonObject, {
+        preferConst: true,
+      })
+
+      return {
+        code: esModuleString,
+        map: {mappings: ''},
+      }
+
     },
   }
 }
