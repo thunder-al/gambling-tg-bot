@@ -1,6 +1,7 @@
 back: << Назад
 main-menu: Главное меню
 once-again: Ещё раз
+error: Ошибка
 
 games:
   slots: Слот
@@ -85,3 +86,7 @@ mini:
   analysis-start:
     msg: |
       Анализирую результаты, подожди немного...
+
+  result-simple:
+    msg: |
+      Следующая игра: x{{x}}, вероятность: {{chance}}%

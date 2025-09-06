@@ -48,7 +48,9 @@ export async function liveConversation(conv: Conversation<Context, Context>, ctx
     i18n.t('live.conversation-analysis-start.msg'),
     {
       parse_mode: 'HTML',
-      reply_markup: new InlineKeyboard().text(i18n.t('main-menu'), 'start'),
+      reply_markup: new InlineKeyboard()
+        .text(i18n.t('main-menu'), 'start').row()
+        .text(i18n.t('once-again'), 'start-live').row(),
     },
   )
 

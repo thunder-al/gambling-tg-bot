@@ -64,7 +64,7 @@ export async function miniConversation(conv: Conversation<Context, Context>, ctx
   )
 
   // Step 3: Wait for user input (text)
-  const userInput = await conv.waitForHears(/^(?:\s*x\d+(?:[.,]\d+)?[,]?\s*)+$/i, {
+  const userInput = await conv.waitForHears(/^(?:\s*[xX]\d+(?:[.,]\d+)?[,]?\s*)+$/i, {
     async otherwise(ctx) {
       await ctx.reply(i18n.t('mini.input-error'), {parse_mode: 'HTML'})
 
@@ -86,26 +86,26 @@ export async function miniConversation(conv: Conversation<Context, Context>, ctx
     generateMiniPrediction(gameKey),
     {
       parse_mode: 'HTML',
-      reply_markup: new InlineKeyboard().text(i18n.t('main-menu'), 'start'),
+      reply_markup: new InlineKeyboard()
+        .text(i18n.t('main-menu'), 'start').row()
+        .text(i18n.t('once-again'), 'start-minigames').row(),
     },
   )
 }
 
 function generateMiniPrediction(gameKey: string): string {
   if (gameKey === 'luckyjet') {
-    // Example: "Следующая игра: x7, вероятность: 96%"
     const x = rand(3, 15)
     const chance = rand(80, 99)
-    return `Следующая игра: x${x}, вероятность: ${chance}%`
+    return i18n.t('mini.result-simple.msg', {x, chance})
   }
 
   if (gameKey === 'luckyjet_analogues') {
-    // Example: "x7 шанс 96%"
     const x = rand(2, 10)
     const chance = rand(60, 98)
-    return `x${x} шанс ${chance}%`
+    return i18n.t('mini.result-simple.msg', {x, chance})
   }
 
-  return 'Нет предсказания.'
+  return i18n.t('error')
 }
 
