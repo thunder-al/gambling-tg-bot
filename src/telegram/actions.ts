@@ -4,6 +4,8 @@ import {pingCommand} from './actions/ping-command.ts'
 import {mainMenuAction} from '@/telegram/actions/main-menu.ts'
 import {AppContext} from '@/telegram/context.ts'
 import {livePredictionScene} from '@/telegram/scenes/live.ts'
+import {miniGameScene} from '@/telegram/scenes/mini.ts'
+import {slotsScene} from '@/telegram/scenes/slots.ts'
 
 export async function registerActions(bot: Telegraf<AppContext>) {
   // bypass main middleware
@@ -16,10 +18,14 @@ export async function registerActions(bot: Telegraf<AppContext>) {
 
   // scenes
   bot.use(livePredictionScene)
+  bot.use(miniGameScene)
+  bot.use(slotsScene)
 
   // other actions
 
   bot.action('start-live', ctx => ctx.enterScene(livePredictionScene))
+  bot.action('start-minigames', ctx => ctx.enterScene(miniGameScene))
+  bot.action('start-slots', ctx => ctx.enterScene(slotsScene))
 
   bot.use(mainMenuAction())
 }

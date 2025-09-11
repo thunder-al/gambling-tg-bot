@@ -47,7 +47,7 @@ export function createStagedScene<C extends AppContext = AppContext>(name: strin
       return Composer.optional(
         ctx => ctx.sceneState?.name === name,
         global(),
-        (ctx, next) => {
+        async (ctx, next) => {
           if (ctx.sceneState?.name !== name) {
             return next()
           }
@@ -58,7 +58,7 @@ export function createStagedScene<C extends AppContext = AppContext>(name: strin
             return next()
           }
 
-          Composer.unwrap(stage)(ctx, async () => {
+          await Composer.unwrap(stage)(ctx, async () => {
             // noop
           })
         },

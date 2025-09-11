@@ -16,7 +16,7 @@ export class AppContext<U extends Update = Update> extends Context<U> {
 
   public session!: Record<string, any>
 
-  public t(key: string | Array<string>, data: Record<string, string> = {}) {
+  public t(key: string | Array<string>, data: Record<string, string | number> = {}) {
     return i18n.t(key, {
       lng: this.from?.language_code ?? 'en',
       ...data,
@@ -25,7 +25,7 @@ export class AppContext<U extends Update = Update> extends Context<U> {
 
   public replyI18n(
     key: string | Array<string>,
-    data: Record<string, string> = {},
+    data: Record<string, string | number> = {},
     extra: Parameters<Context['replyWithHTML']>[1] = {},
   ) {
     const text = this.t(key, data)
@@ -64,7 +64,7 @@ export class AppContext<U extends Update = Update> extends Context<U> {
   }
 
   public leaveScene() {
-    this.sceneState = null
+    (this.session as any).scene = null
   }
 
 }

@@ -68,4 +68,6 @@ livePredictionScene.stage('image-upload').on(filters.message('photo'), async (ct
     ]),
   )
 
+  ctx.leaveScene()
+
 })
