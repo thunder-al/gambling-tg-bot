@@ -1,4 +1,6 @@
+/// <reference types="vite/client" />
+
 declare module '*.yaml' {
-  const content: any;
-  export default content;
+  const value: any
+  export default value
 }

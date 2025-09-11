@@ -13,4 +13,7 @@ export const i18n: I18n = createInstance({
   },
 })
 
-i18n.init()
+i18n.init().catch(err => {
+  console.error('i18n init error:', err)
+  process.exit(1)
+})

@@ -12,10 +12,14 @@
       "node"
     ],
     "strict": true,
-    "declaration": true,
-    "emitDeclarationOnly": true,
     "esModuleInterop": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "allowImportingTsExtensions": true,
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ]
+    }
   },
   "include": [
     "src"

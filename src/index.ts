@@ -1,8 +1,6 @@
-import {createBot} from './bot'
+import {runCli} from '@/cli'
 
 // noinspection JSUnusedGlobalSymbols
 export async function main() {
-  const bot = createBot()
-
-  await bot.start()
+  await runCli()
 }
