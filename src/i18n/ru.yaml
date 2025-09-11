@@ -49,7 +49,7 @@ live:
   conversation-start:
     msg: |
       В отличие от слотов, в лайв-играх есть ритм и статистика. Я анализирую их в реальном времени.
-  
+      
       Отправь мне скриншот игры с live-дилером, где видны последние выпавшие ставки. Я вычислю момент, когда вероятность запуска бонус-раунда максимальна, и подскажу, через сколько сделать ставку.
     error:
       not-a-image: |
@@ -69,8 +69,10 @@ mini:
       Привет, пожалуйста, выбери мини-игру.
 
   games:
-    luckyjet: Lucky Jet (Mini-игры)
-    luckyjet_analogues: Lucky Jet Analogues (Mini-игры)
+    luckyjet: Lucky Jet
+    luckyjet_analogues: Lucky Jet Analogues
+    coinflip: Coin Flip
+    plinko: Plinko
 
   luckyjet:
     instruction: |
@@ -80,8 +82,19 @@ mini:
     instruction: |
       Сделай 5 ставок и напиши результат в формате: x2, x1.5, x3, x1.1, x7
 
+  coinflip:
+    instruction: |
+      Дропните 5 монеток и впишите результат в формате (Р - решка, О - орёл): РОРОРО
+
+  plinko:
+    instruction: |
+      Дропните 5 мячиков и впишите иксы в формате: x2, x1.5, x3, x1.1, x7
+
   input-error: |
     Пожалуйста, отправь результаты ставок текстом в формате: x2, x1.5, x3, x1.1, x7
+
+  input-error-coinflip: |
+    Пожалуйста, отправь результаты ставок текстом в формате: РОРОРО
 
   analysis-start:
     msg: |
@@ -90,3 +103,11 @@ mini:
   result-simple:
     msg: |
       Следующая игра: x{{x}}, вероятность: {{chance}}%
+
+  result-coinflip:
+    msg: |
+      Предположительная следующая последовательность: {{prediction}}
+
+  result-plinko:
+    msg: |
+      Дропните {{prediction}} шариков чтоб словить х100
