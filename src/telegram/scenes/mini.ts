@@ -69,7 +69,7 @@ miniGameScene.stage('instruction').on(filters.message('text'), async ctx => {
       return
     }
   } else {
-    if (!/^(?:\s*x\d+(?:[.,]\d+)?(?:[,;]\s*|[,;]?\s+))+\s*x\d+(?:[.,]\d+)?$/i.test(input)) {
+    if (!/^\s*(?:\s*x\d+(?:[.,]\d+)?(?:[,;]\s*|[,;]?\s+))+\s*x\d+(?:[.,]\d+)?\s*$/i.test(input)) {
       await ctx.replyI18n('mini.input-error')
       return
     }
