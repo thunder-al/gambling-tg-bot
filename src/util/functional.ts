@@ -15,10 +15,25 @@ export function roundDimension(value: number, dimension: number = 2): number {
   return Math.round(value * factor) / factor
 }
 
-export async function safePromise<T>(promise: Promise<T>): Promise<T | Error> {
+export async function safePromise<T>(promise: Promise<T>): Promise<[T, null] | [null, Error]> {
   try {
-    return await promise
+    const data = await promise
+    return [data, null]
+
   } catch (error: any) {
-    return error
+
+    return [null, error]
+  }
+}
+
+export function safeJsonParse<T = any>(str: string | null): T | null {
+  if (!str) {
+    return null
+  }
+
+  try {
+    return JSON.parse(str) as T
+  } catch {
+    return null
   }
 }

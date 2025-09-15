@@ -3,7 +3,6 @@ import {userSvc} from '@/services/user-service.ts'
 import {db} from '@/db'
 import {AppContext} from '@/telegram/context.ts'
 import {i18n} from '@/i18n'
-import {config} from '@/config.ts'
 
 export function mainMenuAction() {
   return Composer.compose<AppContext>([
@@ -36,7 +35,8 @@ async function printMainMessage(ctx: AppContext) {
   await ctx.replyI18n(
     'start.msg',
     {
-      referralLink: config.REFERRAL_LINK,
+      botName: ctx.botRecord.data.name || 'Casino Bot',
+      referralLink: ctx.botRecord.data.referral_link || 'N/A',
     },
     {
       reply_markup: Markup.inlineKeyboard([

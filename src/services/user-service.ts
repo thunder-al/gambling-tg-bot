@@ -1,40 +1,5 @@
-import {db} from '@/db'
 import {DB} from '@/db/database.ts'
 import {Kysely} from 'kysely'
-
-/**
- * Finds an existing user by Telegram ID or creates a new user if not found.
- *
- * @param {string} tg_id - The Telegram ID of the user.
- * @param {string} username - The username of the user.
- * @param {string} name - The name of the user.
- * @returns {Promise<Object>} The existing or newly created user.
- */
-async function findOrCreateUser(
-  tg_id: string,
-  username: string | null,
-  name: string,
-) {
-  const existedUser = await db.selectFrom('users')
-    .selectAll()
-    .where('tg_id', '=', tg_id)
-    .executeTakeFirst()
-
-  if (existedUser) {
-    return existedUser
-  }
-
-  return await db.insertInto('users')
-    .values({
-      // username may be null or undefined
-      // tg_id and name are always present
-      tg_id: `${tg_id}`,
-      username: username ? `${username}` : null,
-      name: `${name}`,
-    })
-    .returningAll()
-    .executeTakeFirstOrThrow()
-}
 
 /**
  * Handles the referral code for a user.
@@ -111,6 +76,5 @@ async function handleReferralCodeOnUser(
 }
 
 export const userSvc = {
-  findOrCreateUser,
   handleReferralCodeOnUser,
 }

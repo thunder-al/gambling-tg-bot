@@ -16,6 +16,8 @@ export class AppContext<U extends Update = Update> extends Context<U> {
 
   public session!: Record<string, any>
 
+  public botRecord!: DbEntity<'bots'>
+
   public t(key: string | Array<string>, data: Record<string, string | number> = {}) {
     return i18n.t(key, {
       lng: this.from?.language_code ?? 'en',

@@ -36,4 +36,22 @@ export interface DB {
     created_at: TAutoDateField
   },
 
+  bots: {
+    id: TAutoBigNumberField
+    token: string
+    tg_id: TBigNumberField
+    tg_username: string
+    active: Generated<boolean>
+    data: TAutoJsonValue<Record<string, any> & { referral_link?: string }>
+    user_id: TNullable<TBigNumberField>
+    created_at: TAutoDateField
+  }
+
+  bot_user: {
+    bot_id: TBigNumberField
+    user_id: TBigNumberField
+    last_active: TAutoDateField
+    created_at: TAutoDateField
+    data: TAutoJsonValue<Record<string, any>>
+  }
 }

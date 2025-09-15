@@ -7,10 +7,6 @@ const validator = z.object({
    */
   APP_SECRET: z.string().length(64),
   /**
-   * Telegram bot token.
-   */
-  TELEGRAM_BOT_TOKEN: z.string(),
-  /**
    * URL for connecting to the Postgres database.
    */
   DATABASE_URL: z.url(),
@@ -18,10 +14,6 @@ const validator = z.object({
    * URL for connecting to the Redis server.
    */
   REDIS_URL: z.url().default('redis://localhost:6379'),
-  /**
-   * Referral link on a gambling platform
-   */
-  REFERRAL_LINK: z.url().default('https://google.com/'),
 })
 
 export const parse = validator.safeParse(process.env)

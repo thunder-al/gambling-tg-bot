@@ -1,42 +1,36 @@
-import {Telegraf, session} from 'telegraf'
 import {logger} from '@/logger.ts'
-import {config} from '@/config.ts'
-import {registerActions} from './actions.ts'
-import {AppContext} from '@/telegram/context.ts'
-import {createSessionPlugin} from '@/telegram/session.ts'
-
-export const bot = new Telegraf<AppContext>(config.TELEGRAM_BOT_TOKEN, {
-  contextType: AppContext,
-})
+import {reconcileTgBots, stopTgBotPool} from '@/telegram/pool.ts'
+import {sleep} from '@/util/functional.ts'
 
 export const botLogger = logger.child({name: 'telegram'})
 
-bot.catch((err, ctx) => {
-  botLogger.error({
-    msg: `Error for ${ctx.updateType}#${ctx.msgId}`,
-    message_type: ctx.updateType,
-    message: ctx.message,
-    err,
-  })
-})
+let isRunning = false
 
-export async function startTelegramBot() {
-  if (!bot.telegram.token) {
-    throw new Error('Telegram bot token is not provided. Env variable TELEGRAM_BOT_TOKEN is missing.')
+export async function startTelegramBots() {
+  if (isRunning) {
+    botLogger.warn('Telegram bots are already running')
+    return
   }
 
-  const info = await bot.telegram.getMe()
+  isRunning = true
+  let isFirstLoop = true
 
-  botLogger.info(`Starting bot @${info.username} (${info.id}) https://t.me/${info.username}`)
+  while (isRunning) {
+    const status = await reconcileTgBots()
+    if (status.added || status.removed || status.failed) {
+      botLogger.info(`Telegram bot reconciliation complete: active=${status.active} added=${status.added} removed=${status.removed} failed=${status.failed}`)
+    }
 
-  bot.use(createSessionPlugin())
+    if (isFirstLoop && status.active === 0) {
+      botLogger.warn(`No bots started. Use \`node start.mjs tg:add TOKEN\` to add some`)
+    }
 
-  await registerActions(bot)
+    isFirstLoop = false
 
-  await bot.launch()
+    await sleep(30_000)
+  }
 }
 
-export function stopTelegramBot(reason: string) {
-  botLogger.info(`Stopping bot: ${reason}`)
-  bot.stop(reason)
+export async function stopTelegramBots() {
+  await stopTgBotPool()
 }
