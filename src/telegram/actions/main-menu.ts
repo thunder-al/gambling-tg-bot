@@ -40,9 +40,9 @@ async function printMainMessage(ctx: AppContext) {
     },
     {
       reply_markup: Markup.inlineKeyboard([
-        Markup.button.callback(i18n.t('games.slots'), 'start-slots'),
-        Markup.button.callback(i18n.t('games.live'), 'start-live'),
-        Markup.button.callback(i18n.t('games.minigames'), 'start-minigames'),
+        Markup.button.callback(ctx.t('games.slots'), 'start-slots'),
+        Markup.button.callback(ctx.t('games.live'), 'start-live'),
+        Markup.button.callback(ctx.t('games.minigames'), 'start-minigames'),
       ]).reply_markup,
       link_preview_options: {is_disabled: true},
     },

@@ -1,0 +1,113 @@
+back: << Back
+main-menu: Main Menu
+once-again: Once Again
+error: Error
+
+games:
+  slots: Slots
+  live: Live
+  minigames: Mini
+
+start:
+  msg: |
+    {{botName}}: Your winning algorithm 🎯
+    
+    Want to play with an advantage?
+    Our bot is your personal analyst, created through analyzing the hash of the casino site. It calculates odds and looks for the best opportunities for your victory.
+    
+    ⚡️ Start in 2 steps:
+    Get access: Register via the link → {{referralLink}}
+    
+    Without this step, our software cannot help you.
+    
+    🤝After activation, simply choose a game — and let artificial intelligence become your strategic advantage.
+
+slots:
+  conversation-start:
+    msg: |
+      I analyze the slot's state from your screenshot and calculate the optimal number of spins to activate the bonus game.
+
+      How it works:
+      1) Take a screenshot of the open slot.
+      2) Send it to me.
+      3) Get a personalized calculation and recommendation.
+      
+      Make your spin at the right time. Send the screenshot now!
+    error:
+      not-a-image: |
+        This doesn't look like an image, please send a screenshot of the open slot
+
+  conversation-analysis-start:
+    msg: |
+      Great, I've received your screenshot and I'm starting to analyze it. This may take some time, please wait
+
+  conversation-result:
+    msg: |
+      There are {{nextGame}} spins left until the bonus game, probability: {{chanceToWin}}%
+
+live:
+  conversation-start:
+    msg: |
+      Unlike slots, live games have rhythm and statistics. I analyze them in real time.
+      
+      Send me a screenshot of the game with a live dealer, showing the latest bets placed. I'll calculate when the probability of triggering the bonus round is maximum, and tell you how many games until you should place a bet.
+    error:
+      not-a-image: |
+        This doesn't look like an image, please send a screenshot of the open live game
+
+  conversation-analysis-start:
+    msg: |
+      Great, I've received your screenshot and I'm starting to analyze it.
+
+  conversation-result:
+    msg: |
+      There are {{nextGame}} games left until the bonus game, probability: {{chanceToWin}}%
+
+mini:
+  choose-game:
+    msg: |
+      Hello, please choose a mini-game.
+
+  games:
+    luckyjet: Lucky Jet
+    luckyjet_analogues: Lucky Jet Analogues
+    coinflip: Coin Flip
+    plinko: Plinko
+
+  luckyjet:
+    instruction: |
+      Make 5 bets and write the results in this format: x2, x1.5, x3, x1.1, x7
+
+  luckyjet_analogues:
+    instruction: |
+      Make 5 bets and write the results in this format: x2, x1.5, x3, x1.1, x7
+
+  coinflip:
+    instruction: |
+      Flip 5 coins and enter the result in this format (T - tails, H - heads): THTHT
+
+  plinko:
+    instruction: |
+      Drop 5 balls and enter the multipliers in this format: x2, x1.5, x3, x1.1, x7
+
+  input-error: |
+    Please send the bet results as text in this format: x2, x1.5, x3, x1.1, x7
+
+  input-error-coinflip: |
+    Please send the bet results as text in this format: THTHT
+
+  analysis-start:
+    msg: |
+      Analyzing the results, please wait a moment...
+
+  result-simple:
+    msg: |
+      Next game: x{{x}}, probability: {{chance}}%
+
+  result-coinflip:
+    msg: |
+      Predicted next sequence: {{prediction}}
+
+  result-plinko:
+    msg: |
+      Drop {{prediction}} balls to catch x100
