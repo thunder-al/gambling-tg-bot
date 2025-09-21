@@ -64,7 +64,7 @@ miniGameScene.stage('instruction').on(filters.message('text'), async ctx => {
   const gameKey = ctx.sceneState!.session.gameKey as string
 
   if (gameKey === 'coinflip') {
-    if (!/^\s*[ОР]+\s*$/i.test(input)) {
+    if (!/^\s*[ОРHTCSYT]+\s*$/i.test(input)) {
       await ctx.replyI18n('mini.input-error-coinflip')
       return
     }

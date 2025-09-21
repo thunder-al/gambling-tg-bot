@@ -1,0 +1,101 @@
+back: << Atrás
+main-menu: Menú principal
+once-again: Una vez más
+error: Error
+
+games:
+  slots: Tragamonedas
+  live: En vivo
+  minigames: Mini
+
+start:
+  msg: |
+    {{botName}}: Tu algoritmo ganador 🎯
+    
+    ¿Quieres jugar con ventaja?
+    Nuestro bot es tu analista personal, creado mediante el análisis del hash del sitio de casino. Calcula las probabilidades y busca las mejores oportunidades para tu victoria.
+    
+    ⚡️ Comienza en 2 pasos:
+    Abre el acceso: Regístrate en el enlace → {{referralLink}}
+    
+    Sin este paso, nuestro software no podrá ayudarte.
+    
+    🤝Después de la activación, simplemente elige el juego y deja que la inteligencia artificial sea tu ventaja estratégica.
+
+slots:
+  conversation-start:
+    msg: |
+      Analizo el estado de la tragamonedas a partir de tu captura de pantalla y calculo el número óptimo de giros para activar el juego de bonificación.
+
+      Cómo funciona:
+      1) Haz una captura de pantalla de la tragamonedas abierta.
+      2) Envíamela.
+      3) Recibe un cálculo y recomendación personalizada.
+      
+      Haz tu giro a tiempo. ¡Envía la captura de pantalla!
+    error:
+      not-a-image: |
+        Esto no parece una imagen, envía una captura de pantalla de la tragamonedas abierta
+
+  conversation-analysis-start:
+    msg: |
+      Perfecto, recibí la captura de pantalla, comienzo a analizarla, esto puede tomar un poco de tiempo, por favor espera
+
+  conversation-result:
+    msg: |
+      Quedan {{nextGame}} giros para el juego de bonificación, probabilidad: {{chanceToWin}}%
+
+live:
+  conversation-start:
+    msg: |
+      A diferencia de las tragamonedas, los juegos en vivo tienen ritmo y estadísticas. Los analizo en tiempo real.
+      
+      Envíame una captura de pantalla del juego con crupier en vivo donde se vean las últimas apuestas realizadas. Calcularé el momento en que la probabilidad de activar la ronda de bonificación sea máxima y te diré cuándo apostar.
+    error:
+      not-a-image: |
+        Esto no parece una imagen, envía una captura de pantalla del juego en vivo abierto
+
+  conversation-analysis-start:
+    msg: |
+      Perfecto, recibí la captura de pantalla, comienzo a analizarla.
+
+  conversation-result:
+    msg: |
+      Quedan {{nextGame}} juegos para el juego de bonificación, probabilidad: {{chanceToWin}}%
+
+mini:
+  choose-game:
+    msg: |
+      Hola, por favor elige un minijuego.
+
+  games:
+    luckyjet: Lucky Jet
+    luckyjet_analogues: Lucky Jet Análogos
+    coinflip: Cara o Cruz
+    plinko: Plinko
+
+  luckyjet:
+    instruction: |
+      Haz 5 apuestas y escribe el resultado en el formato: x2, x1.5, x3, x1.1, x7
+
+  luckyjet_analogues:
+    instruction: |
+      Haz 5 apuestas y escribe el resultado en el formato: x2, x1.5, x3, x1.1, x7
+
+  coinflip:
+    instruction: |
+      Lanza 5 monedas y escribe el resultado en el formato (C - cara, S - cruz): CSCSCS
+
+  plinko:
+    instruction: |
+      Lanza 5 bolas y escribe los multiplicadores en el formato: x2, x1.5, x3, x1.1, x7
+
+  input-error: |
+    Por favor, envía los resultados de las apuestas en texto con el formato: x2, x1.5, x3, x1.1, x7
+
+  input-error-coinflip: |
+    Por favor, envía los resultados de las apuestas en texto con el formato: CSCSCS
+
+  analysis-start:
+    msg: |
+      Comenzando el análisis de tus resultados. Por favor espera mientras calculo la mejor estrategia basada en tus datos.

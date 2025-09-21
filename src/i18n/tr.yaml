@@ -1,0 +1,101 @@
+back: << Geri
+main-menu: Ana Menü
+once-again: Bir kez daha
+error: Hata
+
+games:
+  slots: Slot
+  live: Canlı
+  minigames: Mini
+
+start:
+  msg: |
+    {{botName}}: Kazanma algoritman 🎯
+    
+    Avantajlı oynamak ister misin?
+    Botumuz, casino sitesinin hash analizine dayalı olarak oluşturulmuş kişisel analizcindir. Kazanma şansını hesaplar ve senin için en iyi fırsatları bulur.
+    
+    ⚡️ 2 adımda başla:
+    Erişim aç: Bağlantıdan kaydol → {{referralLink}}
+    
+    Bu adım olmadan yazılımımız sana yardımcı olamaz.
+    
+    🤝Aktivasyondan sonra sadece oyunu seç ve yapay zekanın stratejik avantajın olmasına izin ver.
+
+slots:
+  conversation-start:
+    msg: |
+      Slotun durumunu ekran görüntünden analiz ediyorum ve bonus oyununun etkinleştirilmesi için en uygun dönüş sayısını hesaplıyorum.
+
+      Nasıl çalışır:
+      1) Açık slotun ekran görüntüsünü al.
+      2) Bana gönder.
+      3) Kişisel hesaplama ve öneri al.
+      
+      Dönüşünü zamanında yap. Ekran görüntüsünü gönder!
+    error:
+      not-a-image: |
+        Bu bir resim gibi görünmüyor, açık slotun ekran görüntüsünü gönder
+
+  conversation-analysis-start:
+    msg: |
+      Harika, ekran görüntüsünü aldım, analiz etmeye başlıyorum, bu biraz zaman alabilir, lütfen bekle
+
+  conversation-result:
+    msg: |
+      Bonus oyuna {{nextGame}} dönüş kaldı, olasılık: {{chanceToWin}}%
+
+live:
+  conversation-start:
+    msg: |
+      Slotlardan farklı olarak, canlı oyunlarda ritim ve istatistik vardır. Bunları gerçek zamanlı analiz ediyorum.
+      
+      Son bahislerin göründüğü canlı krupiyer oyunundan ekran görüntüsü gönder. Bonus turunun başlama olasılığı en yüksek olduğunda zamanı hesaplayacağım ve ne zaman bahis yapacağını söyleyeceğim.
+    error:
+      not-a-image: |
+        Bu bir resim gibi görünmüyor, açık canlı oyunun ekran görüntüsünü gönder
+
+  conversation-analysis-start:
+    msg: |
+      Harika, ekran görüntüsünü aldım, analiz etmeye başlıyorum.
+
+  conversation-result:
+    msg: |
+      Bonus oyuna {{nextGame}} oyun kaldı, olasılık: {{chanceToWin}}%
+
+mini:
+  choose-game:
+    msg: |
+      Merhaba, lütfen bir mini oyun seç.
+
+  games:
+    luckyjet: Lucky Jet
+    luckyjet_analogues: Lucky Jet Benzerleri
+    coinflip: Yazı Tura
+    plinko: Plinko
+
+  luckyjet:
+    instruction: |
+      5 bahis yap ve sonucu şu formatta yaz: x2, x1.5, x3, x1.1, x7
+
+  luckyjet_analogues:
+    instruction: |
+      5 bahis yap ve sonucu şu formatta yaz: x2, x1.5, x3, x1.1, x7
+
+  coinflip:
+    instruction: |
+      5 madeni para at ve sonucu şu formatta yaz (Y - yazı, T - tura): YTYTYT
+
+  plinko:
+    instruction: |
+      5 top bırak ve çarpanları şu formatta yaz: x2, x1.5, x3, x1.1, x7
+
+  input-error: |
+    Lütfen bahis sonuçlarını şu formatta metin olarak gönder: x2, x1.5, x3, x1.1, x7
+
+  input-error-coinflip: |
+    Lütfen bahis sonuçlarını şu formatta metin olarak gönder: YTYTYT
+
+  analysis-start:
+    msg: |
+      Sonuçlarınızı analiz etmeye başlıyorum. Lütfen bekleyin, verilerinize göre en iyi stratejiyi hesaplıyorum.

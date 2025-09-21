@@ -3,6 +3,8 @@ import ruMessages from './ru.yaml'
 import enTranslations from './en.yaml'
 import hiMessages from './hi.yaml'
 import bnMessages from './bn.yaml'
+import trMessages from './tr.yaml'
+import esMessages from './es.yaml'
 
 export {type i18n as I18n} from 'i18next'
 
@@ -21,6 +23,12 @@ export const i18n: I18n = createInstance({
     },
     bn: {
       translation: bnMessages,
+    },
+    tr: {
+      translation: trMessages,
+    },
+    es: {
+      translation: esMessages,
     },
   },
 })
