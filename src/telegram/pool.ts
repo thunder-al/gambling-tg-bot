@@ -130,12 +130,6 @@ async function startBot(id: string, botToken: string) {
     },
   }))
 
-  // append bor record data
-  bot.use(async (ctx, next) => {
-    ctx.botRecord = botRecord
-    await next()
-  })
-
   // register actions
   await registerActions(bot)
 

@@ -13,6 +13,17 @@ export function globalUserProcessMiddleware(): MiddlewareFn<AppContext> {
       return
     }
 
+    const botRecord = await db.selectFrom('bots')
+      .selectAll()
+      .where('tg_id', '=', String(ctx.botInfo.id))
+      .limit(1)
+      .executeTakeFirst()
+    if (!botRecord) {
+      throw new Error(`Bot with TG ID ${ctx.botInfo.id} not found in database`)
+    }
+
+    ctx.botRecord = botRecord
+
     // consume and apply user
     ctx.user = await db.insertInto('users')
       .values({
